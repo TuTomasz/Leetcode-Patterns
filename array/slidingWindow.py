@@ -300,6 +300,45 @@ def minRecolors(blocks, k):
     return ans
 
 
+# Problem 9: (Leetcode 485) (easy)
+
+# LINK: https://leetcode.com/problems/max-consecutive-ones/
+
+# Given a binary array nums, return the maximum number of consecutive 1's in the array.
+
+# Pseudocode:
+
+# 1. Initialize left and right pointers to 0
+# 2. Initialize ans and curr to 0
+# 3. Iterate through the array
+# 4. If the current element is 1, then increment curr
+# 5. while curr > 0, then check if the left element is 1
+# 6. If it is, then decrement curr and increment left
+# 7. Update ans
+
+def findMaxConsecutiveOnes(nums):
+    curr = 0  
+    left = 0 
+    ans = 0 
+
+    for right in range(len(nums)):
+
+        if nums[right] == 0:
+            curr += 1
+
+        while curr > 0:
+
+            if nums[left] == 0:
+                curr -= 1
+                left += 1
+            
+        ans = max(ans, right - left + 1)
+        
+    return ans
+    
+
+
+
 
 ###############################################
 # sliding window problems static window size
