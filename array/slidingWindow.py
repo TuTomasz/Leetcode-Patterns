@@ -372,43 +372,44 @@ def minSubArrayLen(s, nums):
         return 0
     return ans
 
-# problem 11 (Leetcode 1456) (Medium)
-# LINK: https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/
+ 
 
-# Given a string s and an integer k, return the maximum number of vowel letters in any substring
-# of s with length k. Vowel letters in English are 'a', 'e', 'i', 'o', and 'u'.
+# problem 12 (Leetcode 1208) (Medium)
+# LINK: https://leetcode.com/problems/get-equal-substrings-within-budget/
+
+# You are given two strings s and t of the same length. You want to change s to t. Changing the i-th character of s to
+# i-th character of t costs |s[i] - t[i]| that is, the absolute difference between the ASCII values of the characters.
+# You are also given an integer maxCost.
+# Return the maximum length of a substring of s that can be changed to be the same as the corresponding substring of t
+# with a cost less than or equal to maxCost.
+# If there is no substring from s that can be changed to its corresponding substring from t, return 0.
 
 # Pseudocode:
 
 # 1. Initialize left and right pointers to 0
 # 2. Initialize ans and curr to 0
-# 3. Iterate through the array and check if the current element is a vowel
-# 4. If it is, then increment curr
-# 5. If right - left + 1 > k, then check if the left element is a vowel
-# 6. If it is, then decrement curr and increment left
-# 7. Update ans
-# 8. Return ans
+# 3. Iterate through the array
+# 4. Add the absolute difference of the current elements to curr
+# 5. If curr > maxCost, then subtract the absolute difference of the left element from curr and increment left
+# 6. Update ans
+# 7. Return ans
 
-def maxVowels(s, k):
-    vowels = set(['a', 'e', 'i', 'o', 'u'])
-    left = 0 
-    ans = 0 
+def equalSubstring(s, t, maxCost):
+    
+    left = 0
+    ans = 0
     curr = 0
 
     for right in range(len(s)):
+        curr += abs(ord(s[right]) - ord(t[right]))
+        print(curr)
 
-        if s[right] in vowels:
-            curr += 1
-        
-        if right - left + 1 > k: 
-
-            if s[left] in vowels:
-                curr -= 1 
+        while curr > maxCost:
+            curr -= abs(ord(s[left]) - ord(t[left]))
             left += 1
-            
-        if right - left + 1 == k :
-            ans = max(ans, curr)
-            
+
+        ans = max(ans, right - left + 1)
+
     return ans
     
 
@@ -487,4 +488,6 @@ def maxVowels(s, k):
         if right - left + 1 == k:
             ans = max(ans, curr)
     return ans
+
+
 
