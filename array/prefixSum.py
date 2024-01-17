@@ -228,3 +228,7 @@ class NumArray:
                 return self.prefix[right]
             return self.prefix[right] - self.prefix[left - 1]
 
+######################################  
+# Additional Problems
+######################################
+        
