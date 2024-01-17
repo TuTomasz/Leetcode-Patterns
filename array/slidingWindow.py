@@ -371,6 +371,45 @@ def minSubArrayLen(s, nums):
     if ans == float('inf'): 
         return 0
     return ans
+
+# problem 11 (Leetcode 1456) (Medium)
+# LINK: https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/
+
+# Given a string s and an integer k, return the maximum number of vowel letters in any substring
+# of s with length k. Vowel letters in English are 'a', 'e', 'i', 'o', and 'u'.
+
+# Pseudocode:
+
+# 1. Initialize left and right pointers to 0
+# 2. Initialize ans and curr to 0
+# 3. Iterate through the array and check if the current element is a vowel
+# 4. If it is, then increment curr
+# 5. If right - left + 1 > k, then check if the left element is a vowel
+# 6. If it is, then decrement curr and increment left
+# 7. Update ans
+# 8. Return ans
+
+def maxVowels(s, k):
+    vowels = set(['a', 'e', 'i', 'o', 'u'])
+    left = 0 
+    ans = 0 
+    curr = 0
+
+    for right in range(len(s)):
+
+        if s[right] in vowels:
+            curr += 1
+        
+        if right - left + 1 > k: 
+
+            if s[left] in vowels:
+                curr -= 1 
+            left += 1
+            
+        if right - left + 1 == k :
+            ans = max(ans, curr)
+            
+    return ans
     
 
 
