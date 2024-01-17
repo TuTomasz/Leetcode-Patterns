@@ -1,0 +1,4 @@
+Leetcode Patterns
+
+--hashing
+--array
