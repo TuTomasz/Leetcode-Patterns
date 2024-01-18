@@ -104,20 +104,20 @@ def minStartValue(nums):
 # 8. Return avg
 
 def kRadiusSubarrayAverages(nums, k):
-        n = len(nums)
-        result = [-1 for i in range(n)]
-        if k == 0:
-            return nums
-        leftSum = [0 for i in range(n)]
-        leftSum[0] = nums[0]
-        for i in range(1,len(nums)):
-            leftSum[i] = (leftSum[i-1]+nums[i])
-        for i in range(k,n-k):
-            if i == k:
-                result[i] = leftSum[i+k]//(2*k+1)
-            else:
-                result[i] = (leftSum[i+k]-leftSum[i-k-1])//(2*k+1)
-        return result
+    n = len(nums)
+    result = [-1 for i in range(n)]
+    if k == 0:
+        return nums
+    leftSum = [0 for i in range(n)]
+    leftSum[0] = nums[0]
+    for i in range(1,len(nums)):
+        leftSum[i] = (leftSum[i-1]+nums[i])
+    for i in range(k,n-k):
+        if i == k:
+            result[i] = leftSum[i+k]//(2*k+1)
+        else:
+            result[i] = (leftSum[i+k]-leftSum[i-k-1])//(2*k+1)
+    return result
 
 # Problem 5: (1732) Find the Highest Altitude
 
@@ -144,6 +144,8 @@ def largestAltitude(gain):
         curr += gain[i]
         max = max(max, curr)
     return max
+
+# or using prefix sum
 
 def largestAltitude(gain):
     prefix = [0] * (len(gain) + 1 )
@@ -191,6 +193,29 @@ def pivotIndex(nums):
         left += nums[i]
     return -1
 
+#or using prefix sums more comprehensive
+
+def pivotIndex(nums):
+    prefix = [0] * len(nums)
+    sum = 0
+    for i in range(len(nums)):
+        sum += nums[i]
+        prefix[i] = sum
+
+    left = 0
+
+    for i in range(len(nums)):
+
+        left = prefix[i] - nums[i] 
+        right = sum - prefix[i] 
+
+        print(left, right)
+
+        if left == right:
+            return i
+
+    return -1
+
 
 # Problem 7: (303) Range Sum Query - Immutable
 
@@ -216,17 +241,17 @@ def pivotIndex(nums):
 
 class NumArray:
     
-        def __init__(self, nums):
-            self.prefix = []
-            self.curr = 0
-            for i in range(len(nums)):
-                self.curr += nums[i]
-                self.prefix.append(self.curr)
-    
-        def sumRange(self, left, right):
-            if left == 0:
-                return self.prefix[right]
-            return self.prefix[right] - self.prefix[left - 1]
+    def __init__(self, nums):
+        self.prefix = []
+        self.curr = 0
+        for i in range(len(nums)):
+            self.curr += nums[i]
+            self.prefix.append(self.curr)
+
+    def sumRange(self, left, right):
+        if left == 0:
+            return self.prefix[right]
+        return self.prefix[right] - self.prefix[left - 1]
 
 ######################################  
 # Additional Problems
