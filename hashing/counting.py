@@ -1,7 +1,8 @@
 
 # Problem 1 (Leetcode 340) (Hard)
 # LINK: https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/
-#Example 1: You are given a string s and an integer k. Find the length of the longest substring that contains at most k distinct characters.
+#Example 1: You are given a string s and an integer k. Find the length of the longest substring 
+#that contains at most k distinct characters.
 
 # Pseudocode:
 
@@ -533,6 +534,77 @@ def uniqueOccurrences(arr):
         return True
     return False
 
+# 5. 451. Sort Characters By Frequency
+# LINK: https://leetcode.com/problems/sort-characters-by-frequency/
 
+# Given a string s, sort it in decreasing order based on the frequency of characters, and return the sorted string.
+
+# Pseudocode:
+
+# 1. Initialize a dictionary
+# 2. Iterate through the string
+# 3. Add the current element to the dictionary
+# 4. If the current element is already in the dictionary, then increment the count
+# 5. Initialize an array
+# 6. Iterate through the dictionary
+# 7. Append the key to the array count times
+# 8. Sort the array in reverse order
+# 9. Return the array as a string
+
+def frequencySort(s):
+    
+    from collections import Counter
+
+    counts = Counter(s)
+
+    freq = []
+    for k , v in counts.items():
+        freq.append([k,v])
+    freq.sort(key=lambda x:x[1], reverse=True)
+
+    res = ""
+    for el in freq:
+        res += el[0] * el[1]
+    return res
+
+
+# 6. 2958. Length of Longest Subarray With at Most K Frequency
+
+# LINK: https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/
+
+# Given an array nums and an integer k, return the maximum length of a subarray that sums to k. If there isn't one, return 0 instead.
+
+# Pseudocode:
+
+# 1. Initialize a dictionary
+# 2. Initialize a variable sum to 0
+# 3. Initialize a variable maxLen to 0
+# 4. Iterate through the array
+# 5. Add the current element to sum
+# 6. If sum is equal to k, then update maxLen
+# 7. If sum - k is in the dictionary, then update maxLen
+# 8. If sum is not in the dictionary, then add sum to the dictionary
+# 9. Return maxLen
+
+def maxSubArrayLen(nums, k):
+    from collections import defaultdict
+
+    counts = defaultdict(int)
+    ans = 0
+    left = 0 
+
+    for right in range(len(nums)):
+
+        counts[nums[right]] += 1
+
+        while counts[nums[right]] > k:
+
+            counts[nums[left]] -= 1
+        
+            left += 1
+
+        ans = max( ans , right - left + 1)
+
+    return ans
 
 
