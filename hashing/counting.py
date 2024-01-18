@@ -394,3 +394,145 @@ def maxNumberOfBalloons(text):
         
         return min
 
+
+#############################################
+# ADDITIONAL PROBLEMS
+#############################################
+
+# 1748. Sum of Unique Elements
+# 3005. Count Elements With Maximum Frequency
+# 1394. Find Lucky Integer in an Array
+# 1207. Unique Number of Occurrences
+# 451. Sort Characters By Frequency
+# 2958. Length of Longest Subarray With at Most K Frequency
+# 1512. Number of Good Pairs
+# 930. Binary Subarrays With Sum
+# 1695. Maximum Erasure Value
+# 567. Permutation in String
+
+# 1. 1748. Sum of Unique Elements
+# LINK: https://leetcode.com/problems/sum-of-unique-elements/
+
+# You are given an integer array nums. The unique elements of an array are the elements that appear exactly once in the array.
+# Return the sum of all the unique elements of nums.
+
+# Pseudocode:
+
+# 1. Initialize a dictionary
+# 2. Iterate through the array
+# 3. Add the current element to the dictionary
+# 4. If the current element is already in the dictionary, then increment the count
+# 5. Initialize a variable sum to 0
+# 6. Iterate through the dictionary
+# 7. If the value is equal to 1, then add the key to sum
+# 8. Return sum
+
+def sumOfUnique(nums):
+    from collections import Counter
+
+    counts = Counter(nums)
+    sum = 0
+
+    for k,v in counts.items():
+
+        if v <= 1:
+            sum += k 
+
+    return sum 
+
+
+# 2. 3005. Count Elements With Maximum Frequency
+# LINK: https://leetcode.com/problems/count-elements-with-maximum-frequency/
+
+# Given an array nums, return the number of elements that are equal to the maximum frequency in the array.
+
+# Pseudocode:
+
+# 1. Initialize a dictionary
+# 2. Iterate through the array
+# 3. Add the current element to the dictionary
+# 4. If the current element is already in the dictionary, then increment the count
+# 5. Initialize a variable max to 0
+# 6. Iterate through the dictionary
+
+def maxFrequency(nums):
+    from collections import Counter
+
+    counts = Counter(nums)
+    
+    m = max(list(counts.values()))
+    
+    count = 0 
+
+    for k ,v in counts.items():
+
+        if v == m:
+            count += v
+
+    return count 
+
+# 3. 1394. Find Lucky Integer in an Array
+# LINK: https://leetcode.com/problems/find-lucky-integer-in-an-array/
+
+# Given an array of integers arr, a lucky integer is an integer which has a frequency in the array equal to its value.
+# Return a lucky integer in the array. If there are multiple lucky integers return the largest of them. If there is no lucky integer return -1.
+
+# Pseudocode:
+
+# 1. Initialize a dictionary
+# 2. Iterate through the array
+# 3. Add the current element to the dictionary
+# 4. If the current element is already in the dictionary, then increment the count
+# 5. Initialize a variable max to -1
+# 6. Iterate through the dictionary
+# 7. If the key is equal to the value, then update max
+# 8. Return max
+
+def findLucky(arr):
+    
+    from collections import Counter
+
+    counts = Counter(arr)
+
+    ans = -1 
+
+    for k , v in counts.items():
+
+        if k == v:
+
+            ans = max(ans, v)
+
+    return ans
+
+# 4. 1207. Unique Number of Occurrences
+# LINK: https://leetcode.com/problems/unique-number-of-occurrences/
+
+# Given an array of integers arr, write a function that returns true if and only if the number of occurrences of each value in the array is unique.
+
+# Pseudocode:
+
+# 1. Initialize a dictionary
+# 2. Iterate through the array
+# 3. Add the current element to the dictionary
+# 4. If the current element is already in the dictionary, then increment the count
+# 5. Initialize a set
+# 6. Iterate through the dictionary
+# 7. Add the value to the set
+# 8. Return the length of the set is equal to the length of the dictionary
+
+def uniqueOccurrences(arr):
+     
+    from collections import Counter
+
+    counts = Counter(arr)
+
+    uniqueValues =  set(counts.values())
+    uniqueKeys = counts.keys()
+
+    if len(uniqueValues) == len(uniqueKeys):
+        return True
+    return False
+
+
+
+
