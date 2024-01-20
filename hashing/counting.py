@@ -1,66 +1,4 @@
 
-# Problem 1 (Leetcode 340) (Hard)
-# LINK: https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/
-#Example 1: You are given a string s and an integer k. Find the length of the longest substring 
-#that contains at most k distinct characters.
-
-# Pseudocode:
-
-# 1. Initialize left and right pointers to 0
-# 2. Initialize a dictionary
-# 3. Initialize max_len to 0
-# 4. Iterate through the string
-# 5. Add the current element to the dictionary
-# 6. If the length of the dictionary is greater than k, then subtract the left element from the dictionary and increment left
-# 7. Update max_len
-# 8. Return max_len
-
- 
-
-def lengthOfLongestSubstringKDistinct(s, k):
-    
-    left = 0
-    right = 0
-    max_len = 0
-    hash_map = {}
-    
-    for right in range(len(s)):
-        
-        hash_map[s[right]] = hash_map.get(s[right], 0) + 1
-        
-        while len(hash_map) > k:
-            hash_map[s[left]] -= 1
-            if hash_map[s[left]] == 0:
-                del hash_map[s[left]]
-            left += 1
-        
-        max_len = max(max_len, right - left + 1)
-    
-    return max_len
-
-# or 
-
-def lengthOfLongestSubstringKDistinct(s, k):
- 
-        from collections import defaultdict
-
-        seen = defaultdict(int)
-        ans = 0
-        left = 0 
- 
-
-        for right in range(len(s)):
-
-            seen[s[right]] += 1
-
-            while len(seen) > k:
-                seen[s[left]] -= 1
-                if seen[s[left]] == 0:
-                    del seen[s[left]] 
-                left += 1
-            ans = max(ans, right - left + 1)
-        
-        return ans
 
 # Problem 2 (Leetcode 2248)  Intersection of Multiple Arrays (Medium)
 
@@ -135,37 +73,37 @@ def intersection(nums):
 
 def areOccurrencesEqual(s):
             
-            hash_map = {}
-            
-            for i in range(len(s)):
-                hash_map[s[i]] = hash_map.get(s[i], 0) + 1
-            
-            count = hash_map[s[0]]
-            
-            for key, value in hash_map.items():
-                if value != count:
-                    return False
-            
-            return True
+    hash_map = {}
+    
+    for i in range(len(s)):
+        hash_map[s[i]] = hash_map.get(s[i], 0) + 1
+    
+    count = hash_map[s[0]]
+    
+    for key, value in hash_map.items():
+        if value != count:
+            return False
+    
+    return True
 
 # or
 
 def areOccurrencesEqual(s):
                     
-            from collections import defaultdict
-            
-            seen = defaultdict(int)
-            
-            for i in range(len(s)):
-                seen[s[i]] += 1
-            
-            count = seen[s[0]]
-            
-            for key, value in seen.items():
-                if value != count:
-                    return False
-            
-            return True
+    from collections import defaultdict
+    
+    seen = defaultdict(int)
+    
+    for i in range(len(s)):
+        seen[s[i]] += 1
+    
+    count = seen[s[0]]
+    
+    for key, value in seen.items():
+        if value != count:
+            return False
+    
+    return True
 
 
 # problem 4 (Leetcode 560) (Medium) Subarray Sum Equals K
@@ -217,60 +155,6 @@ def subarraySum(nums, k):
         counts[curr] += 1
     
     return ans
-
-
-# Problem 5 (Leetcode 1248) (Medium) Count Number of Nice Subarrays
-
-# LINK: https://leetcode.com/problems/count-number-of-nice-subarrays/
-
-# Given an array of integers nums and an integer k. A subarray is called nice if there are k odd numbers on it.
-# Return the number of nice sub-arrays.
-
-# Pseudocode:
-
-# 1. Initialize a dictionary
-# 2. Initialize a variable count to 0
-# 3. Initialize a variable sum to 0
-# 4. Iterate through the array
-# 5. If the current element is odd, then add 1 to sum
-# 6. If sum is equal to k, then increment count
-# 7. If sum - k is in the dictionary, then increment count by the value of sum - k in the dictionary
-
-def numberOfSubarrays(nums, k):
-    hash_map = {}
-    count = 0
-    sum = 0
-
-    for i in range(len(nums)):
-        if nums[i] % 2 == 1:
-            sum += 1
-
-        if sum == k:
-            count += 1
-
-        if sum - k in hash_map:
-            count += hash_map[sum - k]
-
-        hash_map[sum] = hash_map.get(sum, 0) + 1
-
-    return count
-
-# or
-
-def numberOfSubarrays(nums, k):
-    from collections import defaultdict
-    counts = defaultdict(int)
-    counts[0] = 1
-    ans = curr = 0
-
-    for num in nums:
-        curr += num % 2
-        ans += counts[curr - k]
-        counts[curr] += 1
-    
-    return ans
-
-
 
 
 # Problem 6 (Leetcode 2225) (Medium) Find the Winner of an Array Game
@@ -568,44 +452,7 @@ def frequencySort(s):
     return res
 
 
-# 6. 2958. Length of Longest Subarray With at Most K Frequency
 
-# LINK: https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/
-
-# Given an array nums and an integer k, return the maximum length of a subarray that sums to k. If there isn't one, return 0 instead.
-
-# Pseudocode:
-
-# 1. Initialize a dictionary
-# 2. Initialize a variable sum to 0
-# 3. Initialize a variable maxLen to 0
-# 4. Iterate through the array
-# 5. Add the current element to sum
-# 6. If sum is equal to k, then update maxLen
-# 7. If sum - k is in the dictionary, then update maxLen
-# 8. If sum is not in the dictionary, then add sum to the dictionary
-# 9. Return maxLen
-
-def maxSubArrayLen(nums, k):
-    from collections import defaultdict
-
-    counts = defaultdict(int)
-    ans = 0
-    left = 0 
-
-    for right in range(len(nums)):
-
-        counts[nums[right]] += 1
-
-        while counts[nums[right]] > k:
-
-            counts[nums[left]] -= 1
-        
-            left += 1
-
-        ans = max( ans , right - left + 1)
-
-    return ans
 
 
 # 7. 1512. Number of Good Pairs
@@ -637,90 +484,6 @@ def numIdenticalPairs(nums):
             dic[n] +=1
     
     return res
-
-
-# 8. 930. Binary Subarrays With Sum
-# LINK: https://leetcode.com/problems/binary-subarrays-with-sum/
-
-# In an array nums of 0s and 1s, how many non-empty subarrays have sum goal?
-
-# Pseudocode:
-
-# 1. Initialize a dictionary
-# 2. Initialize a variable sum to 0
-# 3. Initialize a variable count to 0
-# 4. Iterate through the array
-# 5. Add the current element to sum
-
-def numSubarraysWithSum(nums, goal):
-    from collections import defaultdict
-
-    counts = defaultdict(int)
-    counts[0] = 1
-    ans = curr = 0
-
-    for num in nums:
-        curr += num
-        ans += counts[curr - goal]
-        counts[curr] += 1
-    
-    return ans
-#  without defaultdict
-
-def numSubarraysWithSum(nums, goal):
-    counts = {}
-    counts[0] = 1
-    ans = curr = 0
-
-    for num in nums:
-        curr += num
-        if curr - goal in counts:
-            ans += counts[curr - goal]
-        if curr not in counts:
-            counts[curr] = 0
-        counts[curr] += 1
-    
-    return ans
-
-
-# 9. 1695. Maximum Erasure Value
-# LINK: https://leetcode.com/problems/maximum-erasure-value/
-
-# You are given an array of positive integers nums and want to erase a subarray containing unique elements.
-# The score you get by erasing the subarray is equal to the sum of its elements.
-# Return the maximum score you can get by erasing exactly one subarray.
-
-# Pseudocode:
-
-# 1. Initialize a dictionary
-# 2. Initialize a variable sum to 0
-# 3. Initialize a variable maxSum to 0
-# 4. Initialize a variable left to 0
-# 5. Iterate through the array
-# 6. Add the current element to sum
-# 7. If the current element is already in the dictionary, then increment left and update sum
-# 8. Update maxSum
-# 9. Return maxSum
-
-def maximumUniqueSubarray(nums):
-    seen = set()
-    left = 0 
-    ans = 0 
-    curr = 0 
-
-    for right in range(len(nums)):
-        curr += nums[right]
-        
-        while nums[right] in seen: 
-            curr -= nums[left]
-            seen.remove(nums[left])
-            left += 1
-
-        seen.add(nums[right])
-        ans = max(ans , curr)   
-    
-
-    return ans
 
 
 # 10. 567. Permutation in String
@@ -796,3 +559,28 @@ def checkInclusion(s1, s2):
     if len(seen) == 0:
         return True
     return False
+
+
+# 11. 219. Contains Duplicate II
+
+# LINK: https://leetcode.com/problems/contains-duplicate-ii/
+
+# Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j]
+# and abs(i - j) <= k.
+
+# Pseudocode:
+
+# 1. Initialize a dictionary
+# 2. Iterate through the array
+# 3. If the current element is in the dictionary and the difference between the current index and the value of the current element in the dictionary
+#    is less than or equal to k, then return True
+# 4. Add the current element to the dictionary
+
+def containsNearbyDuplicate(nums, k):
+    seen = {}
+
+    for i , el in enumerate(nums):
+        if el in seen and i - seen[el]  <= k: # seen[el] is j 
+            return True 
+        seen[el] = i 
+    return False 
