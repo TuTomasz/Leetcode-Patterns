@@ -193,7 +193,7 @@ def subarraySum(nums, k):
     for i in range(len(nums)):
         sum += nums[i]
 
-        if sum == k:
+        if sum == k:    ## dont need this line if you initalize hahmap with {0:1}
             count += 1
 
         if sum - k in hash_map:
@@ -608,3 +608,191 @@ def maxSubArrayLen(nums, k):
     return ans
 
 
+# 7. 1512. Number of Good Pairs
+# LINK: https://leetcode.com/problems/number-of-good-pairs/
+
+# Given an array of integers nums.
+# A pair (i,j) is called good if nums[i] == nums[j] and i < j.
+# Return the number of good pairs.
+
+# Pseudocode:
+
+# 1. Initialize a dictionary
+# 2. Initialize a variable count to 0
+# 3. Iterate through the array
+# 4. Add the current element to the dictionary
+# 5. If the current element is already in the dictionary, then increment count by the value of the current element in the dictionary
+# 6. Return count
+
+def numIdenticalPairs(nums):
+    dic = {}
+       
+    res = 0
+    for n in nums:
+        
+        if n not in dic:
+            dic[n] = 1
+        else:
+            res += dic[n]
+            dic[n] +=1
+    
+    return res
+
+
+# 8. 930. Binary Subarrays With Sum
+# LINK: https://leetcode.com/problems/binary-subarrays-with-sum/
+
+# In an array nums of 0s and 1s, how many non-empty subarrays have sum goal?
+
+# Pseudocode:
+
+# 1. Initialize a dictionary
+# 2. Initialize a variable sum to 0
+# 3. Initialize a variable count to 0
+# 4. Iterate through the array
+# 5. Add the current element to sum
+
+def numSubarraysWithSum(nums, goal):
+    from collections import defaultdict
+
+    counts = defaultdict(int)
+    counts[0] = 1
+    ans = curr = 0
+
+    for num in nums:
+        curr += num
+        ans += counts[curr - goal]
+        counts[curr] += 1
+    
+    return ans
+#  without defaultdict
+
+def numSubarraysWithSum(nums, goal):
+    counts = {}
+    counts[0] = 1
+    ans = curr = 0
+
+    for num in nums:
+        curr += num
+        if curr - goal in counts:
+            ans += counts[curr - goal]
+        if curr not in counts:
+            counts[curr] = 0
+        counts[curr] += 1
+    
+    return ans
+
+
+# 9. 1695. Maximum Erasure Value
+# LINK: https://leetcode.com/problems/maximum-erasure-value/
+
+# You are given an array of positive integers nums and want to erase a subarray containing unique elements.
+# The score you get by erasing the subarray is equal to the sum of its elements.
+# Return the maximum score you can get by erasing exactly one subarray.
+
+# Pseudocode:
+
+# 1. Initialize a dictionary
+# 2. Initialize a variable sum to 0
+# 3. Initialize a variable maxSum to 0
+# 4. Initialize a variable left to 0
+# 5. Iterate through the array
+# 6. Add the current element to sum
+# 7. If the current element is already in the dictionary, then increment left and update sum
+# 8. Update maxSum
+# 9. Return maxSum
+
+def maximumUniqueSubarray(nums):
+    seen = set()
+    left = 0 
+    ans = 0 
+    curr = 0 
+
+    for right in range(len(nums)):
+        curr += nums[right]
+        
+        while nums[right] in seen: 
+            curr -= nums[left]
+            seen.remove(nums[left])
+            left += 1
+
+        seen.add(nums[right])
+        ans = max(ans , curr)   
+    
+
+    return ans
+
+
+# 10. 567. Permutation in String
+# LINK: https://leetcode.com/problems/permutation-in-string/
+
+# Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.
+# In other words, return true if one of s1's permutations is the substring of s2.
+
+# Pseudocode:
+
+# 1. Initialize a dictionary
+# 2. Iterate through the string s1
+# 3. Add the current element to the dictionary
+# 4. If the current element is already in the dictionary, then increment the count
+# 5. Initialize a variable left to 0
+# 6. Initialize a variable right to 0
+# 7. Initialize a variable count to 0
+# 8. Iterate through the string s2
+# 9. If the current element is in the dictionary, then decrement the count
+# 10. If the count is equal to 0, then increment right
+# 11. If the count is less than 0, then increment left and update the count
+# 12. If right - left is equal to the length of s1, then return True
+# 13. Return False
+
+def checkInclusion(s1, s2):
+    
+    from collections import Counter
+
+    counts = Counter(s1)
+    left = 0 
+    right = 0 
+    count = len(s1)
+
+    while right < len(s2):
+
+        if s2[right] in counts:
+            count -= 1
+
+        if count == 0:
+            return True
+
+        if right - left + 1 == len(s1):
+            if s2[left] in counts:
+                count += 1
+            left += 1
+
+        right += 1
+
+    return False
+
+# or
+
+def checkInclusion(s1, s2):
+    from collections import Counter
+
+    seen = Counter(s1)
+    left = 0
+    right = 0 
+
+    while right < len(s2):
+        if s2[right] in seen:
+            if seen[s2[right]] == 1:
+                del seen[s2[right]]
+                if len(seen) == 0:
+                    return True
+            else:
+                seen[s2[right]] -= 1
+            right += 1
+        else:
+            seen[s2[left]] += 1
+            left += 1
+        
+    if len(seen) == 0:
+        return True
+    return False
