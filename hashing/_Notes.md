@@ -47,3 +47,7 @@
 
 - Find the minimum window in a string that contains all characters of another string.
 - Use two hashmaps to store the frequency of characters in the target string and the current window.
+
+# Sequence
+
+- questions about longes consecutive sequence
