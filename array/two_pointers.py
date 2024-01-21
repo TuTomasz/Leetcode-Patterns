@@ -272,6 +272,80 @@ def reversePrefix(word, ch):
     
     return word
 
+# 167. Two Sum II - Input Array Is Sorted
+
+# LINK: https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
+
+# Given an array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they
+# add up to a specific target number.
+# Return the indices of the two numbers (1-indexed) as an integer array answer of size 2, where 1 <= answer[0] <
+# answer[1] <= numbers.length.
+# The tests are generated such that there is exactly one solution. You may not use the same element twice.
+
+# Pseudocode:
+
+# 1. Initialize left and right pointers to 0 and len(nums) - 1 respectively
+# 2. Iterate through the array
+# 3. If the sum of the current elements is equal to target, then return [left + 1, right + 1]
+# 4. If the sum of the current elements is greater than target, then decrement right
+# 5. Else, increment left
+
+def twoSum(numbers, target):
+    left = 0
+    right = len(numbers) - 1
+
+    while left < right:
+        
+        localsum = numbers[left] + numbers[right]
+
+        if localsum == target:
+            return [left + 1, right + 1]
+        elif localsum > target:
+            right -= 1
+        else:
+            left += 1
+
+    return [-1, -1]
+         
+
+#  11. Container With Most Water
+
+# LINK: https://leetcode.com/problems/container-with-most-water/
+
+# Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). n vertical
+# lines are drawn such that the two endpoints of the line i is at (i, ai) and (i, 0). Find two lines, which,
+# together with the x-axis forms a container, such that the container contains the most water.
+
+# Pseudocode:
+
+# 1. Initialize left and right pointers to 0 and len(height) - 1 respectively
+# 2. Initialize a variable maxArea to 0
+# 3. Iterate through the array
+# 4. Update maxArea to max(maxArea, min(height[left], height[right]) * (right - left))
+# 5. If height[left] is less than height[right], then increment left
+# 6. Else, decrement right
+# 7. Return maxArea
+
+def maxArea(height):
+    left = 0 
+    right = len(height) -1
+    maxArea = float("-inf")
+
+    while left < right:
+
+        h1 = height[left]
+        h2 = height[right]
+        h = min(h1, h2)
+        w = abs(right - left)
+        area = w * h
+        maxArea = max(area, maxArea)
+
+        if h1 < h2: 
+            left += 1
+        else:
+            right -= 1
+
+    return maxArea
 
         
 
