@@ -14,7 +14,8 @@
 # 2. Initialize max_len and curr_sum to 0
 # 3. Iterate through the array
 # 4. Add the current element to curr_sum
-# 5. If curr_sum > k, then subtract the left element from curr_sum and increment left
+# 5. If curr_sum > k, then subtract the left
+# element from curr_sum and increment left
 # 6. Update max_len
 # 7. Return max_len
 
