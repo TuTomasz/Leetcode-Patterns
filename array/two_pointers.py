@@ -34,6 +34,45 @@ def isPalindrome(s):
 
     return True
 
+# Longest Palindromic Substring (Medium)
+# LINK: https://leetcode.com/problems/longest-palindromic-substring/
+
+# Given a string s, return the longest palindromic substring in s.
+
+# Pseudocode:
+
+ # define palindrome function
+    # iterate through the string
+    # if the current element is not equal to the element at the end, then return False
+    # else, increment left and decrement right
+    # return True
+
+# iterate through the string
+# iterate through the string from the end
+# if the current element is equal to the element at the end, then call the palindrome function
+ 
+
+def longestPalindrome(self, s):
+    def isPalindrome(l,r,s):
+        left = l
+        right = r
+
+        while left <= right: 
+            if s[left] != s[right]:
+                return False
+            left += 1
+            right -= 1
+
+        return True
+
+
+    for length in range(len(s),0 ,-1):
+        for start in range(len(s) - length +  1):
+            if isPalindrome( start, start + length - 1, s):
+                    return s[start:start+length]
+
+                min
+
 
 # Problem 2: (Leetcode 392) (Easy) 
 # LINK: https://leetcode.com/problems/is-subsequence/
@@ -347,7 +386,9 @@ def maxArea(height):
 
     return maxArea
 
+
         
 
 
 
+ 
