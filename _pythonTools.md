@@ -71,3 +71,7 @@
   - `permutations(iterable, r)`: Returns all possible r-length tuples of elements from the iterable.
   - `combinations(iterable, r)`: Returns all possible r-length combinations of elements from the iterable.
   - `product(*iterables, repeat=1)`: Cartesian product of input iterables.
+
+## USAGE OF THINGS
+
+sortedPairs = sorted(pairs, key=lambda x:x[1], reverse=True)
