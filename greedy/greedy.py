@@ -105,3 +105,47 @@ def findLeastNumOfUniqueInts(self, arr: List[int], k: int) -> int:
             break
 
     return len(freq)
+
+
+#  881 Boats to Save People
+
+# https://leetcode.com/problems/boats-to-save-people/
+
+# Description
+
+# The i-th person has weight people[i], and each boat can carry a maximum weight of limit.
+# Each boat carries at most 2 people at the same time, provided the sum of the weight of those people is at most limit.
+# Return the minimum number of boats to carry every given person.  (It is guaranteed each person can be carried by a boat.)
+
+# Pseudocode:
+
+# 1. Sort the array
+# 2. Initialize a variable ans to 0
+# 3. Initialize a variable left to 0
+# 4. Initialize a variable right to n - 1
+# 5. While left <= right:
+# 6.     If people[left] + people[right] <= limit:
+# 7.         Increment left
+# 10.    Decrement right
+# 11.    Increment ans
+# 12. Return ans
+
+# O(n⋅logn) time | O(1) space
+
+def numRescueBoats(self, people: List[int], limit: int) -> int:
+    
+    lightest = 0 
+    heaviest = len(people) - 1
+
+    ans = 0
+    people.sort()
+
+    while lightest <= heaviest: 
+
+        if people[lightest] + people[heaviest] <= limit:
+            lightest += 1
+
+        heaviest -= 1
+        ans += 1
+
+    return ans
