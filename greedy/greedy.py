@@ -149,3 +149,118 @@ def numRescueBoats(self, people: List[int], limit: int) -> int:
         ans += 1
 
     return ans
+
+# 1710. Maximum Units on a Truck
+
+# https://leetcode.com/problems/maximum-units-on-a-truck/
+
+# Description
+
+# You are assigned to put some amount of boxes onto one truck. You are given a 2D array boxTypes, where boxTypes[i] = [numberOfBoxesi, numberOfUnitsPerBoxi]:
+
+# numberOfBoxesi is the number of boxes of type i.
+# numberOfUnitsPerBoxi is the number of units in each box of the type i.
+# You are also given an integer truckSize, which is the maximum number of boxes that can be put on the truck. You can choose any boxes to put on the truck as long as the number of boxes does not exceed truckSize.
+# Return the maximum total number of units that can be put on the truck.
+
+# Pseudocode:
+
+# 1. Sort the array by the number of units per box in descending order
+# 2. Initialize a variable ans to 0
+# 3. Initialize a variable i to 0
+# 4. While truckSize and i < n:
+# 5.     If truckSize is less than the number of boxes of type i:
+# 6.         Update ans to ans + truckSize * number of units per box of type i
+# 7.         Break
+# 8.     Else:
+# 9.         Update ans to ans + number of boxes of type i * number of units per box of type i
+# 10.        Decrement truckSize by the number of boxes of type i
+
+# O(n⋅logn) time | O(1) space
+
+def maximumUnits(self, boxTypes: List[List[int]], truckSize: int) -> int:
+    ans = 0
+    boxTypes = sorted(boxTypes, key=lambda x: x[1], reverse=True)
+    for boxes, units in boxTypes:
+        while boxes and truckSize > 0:
+            ans += units
+            boxes -= 1
+            truckSize -= 1
+    return ans
+    
+
+# 1196. How Many Apples Can You Put into the Basket 
+
+# https://leetcode.com/problems/how-many-apples-can-you-put-into-the-basket/
+
+# Description
+
+# You have some apples, where arr[i] is the weight of the i-th apple.  You also have a basket that can carry up to 5000 units of weight.
+# Return the maximum number of apples you can put in the basket.
+
+# Pseudocode:
+
+# 1. Sort the array
+# 2. Initialize a variable ans to 0
+# 3. Initialize a variable sum to 0
+# 4. Iterate through the array
+# 5. If sum + arr[i] <= 5000:
+# 6.     Increment ans
+# 7.     Update sum to sum + arr[i]
+# 8. Return ans
+
+# O(n⋅logn) time | O(1) space
+
+def maxNumberOfApples(self, arr: List[int]) -> int:
+    arr.sort()
+    ans = 0
+    sum = 0
+    for i in range(len(arr)):
+        if sum + arr[i] <= 5000:
+            ans += 1
+            sum += arr[i]
+    return ans
+
+
+# 1338. Reduce Array Size to The Half
+
+# https://leetcode.com/problems/reduce-array-size-to-the-half/
+
+# Description
+
+# Given an array arr.  You can choose a set of integers and remove all the occurrences of these integers in the array.
+# Return the minimum size of the set so that at least half of the integers of the array are removed.
+
+# Pseudocode:
+
+# 1. Count the frequency of each number
+# 2. Sort the frequency array in descending order by frequency
+# 3. Initialize a variable ans to 0
+# 4. Initialize a variable sum to 0
+# 5. Iterate through the frequency array
+# 6.     Increment ans
+# 7.     Update sum to sum + the current element
+# 8.     If sum is greater than or equal to half the length of the array:
+# 9.         Break
+# 10. Return ans
+
+# O(n⋅logn) time | O(n) space
+
+def minSetSize(self, arr: List[int]) -> int:
+    from collections import Counter
+        
+    freq = Counter(arr)
+    length = len(arr)
+    count = 0
+    nums = 0
+    sortedPairs = sorted(list(set(arr)), key=lambda x:freq[x], reverse=True)   
+    
+    for k in sortedPairs:
+        
+        if count + freq[k] >= length / 2:
+            return nums + 1
+        else:
+            count += freq[k]
+            nums += 1
+        
+    return nums
